@@ -1,18 +1,24 @@
 package com.example.sandy.miwoklanguage;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class FamilyMembersActivity extends AppCompatActivity {
+
+public class FamilyMembersFragment extends Fragment {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_family_members);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_family_members, container, false);
         ArrayList<Word> numbers = new ArrayList<Word>();
         numbers.add(new Word("father", "әpә", R.drawable.family_father));
         numbers.add(new Word("mother", "әṭa", R.drawable.family_mother));
@@ -25,10 +31,18 @@ public class FamilyMembersActivity extends AppCompatActivity {
         numbers.add(new Word("grandmother", "ama", R.drawable.family_grandmother));
         numbers.add(new Word("grandfather", "paapa", R.drawable.family_grandfather));
 
-        ListView layout = (ListView) findViewById(R.id.family_members_list);
+        ListView layout = (ListView) rootView.findViewById(R.id.family_members_list);
 
-        WordAdapter itemsAdapter = new WordAdapter(this, numbers,R.color.category_family);
+        WordAdapter itemsAdapter = new WordAdapter(getActivity(), numbers, R.color.category_family);
 
         layout.setAdapter(itemsAdapter);
+        return rootView;
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+
 }

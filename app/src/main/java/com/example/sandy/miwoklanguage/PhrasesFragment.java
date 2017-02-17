@@ -1,18 +1,22 @@
 package com.example.sandy.miwoklanguage;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class PhrasesActivity extends AppCompatActivity {
+
+public class PhrasesFragment extends Fragment {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_phrases);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_phrases, container, false);
         ArrayList<Word> numbers = new ArrayList<Word>();
         numbers.add(new Word("Where are you going?",
                 "minto wuksus"));
@@ -26,10 +30,18 @@ public class PhrasesActivity extends AppCompatActivity {
         numbers.add(new Word("Let’s go.", "yoowutis"));
         numbers.add(new Word("Come here.", "әnni 'nem"));
 
-        ListView layout = (ListView) findViewById(R.id.phrases_list);
+        ListView layout = (ListView) rootView.findViewById(R.id.phrases_list);
 
-        WordAdapter itemsAdapter = new WordAdapter(this, numbers,R.color.category_phrases);
+        WordAdapter itemsAdapter = new WordAdapter(getActivity(), numbers, R.color.category_phrases);
 
         layout.setAdapter(itemsAdapter);
+        return rootView;
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+
 }
